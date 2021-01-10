@@ -30,6 +30,10 @@ function App(): JSX.Element {
     );
   };
 
+  const deleteHabit = (habitToDelete: Habit) => {
+    setHabits(habits.filter((habit) => habit.id !== habitToDelete.id));
+  };
+
   return (
     <div className="App">
       <h1 className="text-center">Habit Tracker</h1>
@@ -50,6 +54,7 @@ function App(): JSX.Element {
               habits={habits}
               dates={dates}
               updateHabit={updateHabit}
+              deleteHabit={deleteHabit}
             />
           </Col>
         </Row>

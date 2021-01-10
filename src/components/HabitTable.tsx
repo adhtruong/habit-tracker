@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
+import HabitEdit from "./HabitEdit";
 
 interface RowProps {
   habit: Habit;
   dates: Date[];
   updateHabit: (habit: Habit) => void;
+  handleShow: (habit: Habit) => void;
 }
 
 interface CellProps {
@@ -17,6 +19,7 @@ interface Props {
   habits: Habit[];
   dates: Date[];
   updateHabit: (habit: Habit) => void;
+  deleteHabit: (habit: Habit) => void;
 }
 
 const HabitCell: React.FC<CellProps> = ({ ticked, toggleHabit }) => {
@@ -33,10 +36,17 @@ function getRowData(habit: Habit, dates: Date[]) {
   }));
 }
 
-const HabitRow: React.FC<RowProps> = ({ habit, dates, updateHabit }) => {
+const HabitRow: React.FC<RowProps> = ({
+  habit,
+  dates,
+  updateHabit,
+  handleShow,
+}) => {
   return (
     <tr>
-      <td key={habit.name}>{habit.name}</td>
+      <td key={habit.name} onClick={() => handleShow(habit)}>
+        {habit.name}
+      </td>
       {getRowData(habit, dates).map(({ ticked, date }) => {
         return (
           <HabitCell
@@ -71,28 +81,47 @@ function toggleHabit(
   updateHabit(updated_habit);
 }
 
-function HabitTable({ habits, dates, updateHabit }: Props): JSX.Element {
+function HabitTable({
+  habits,
+  dates,
+  updateHabit,
+  deleteHabit,
+}: Props): JSX.Element {
+  const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null);
+
+  const handleClose = () => setSelectedHabit(null);
+  const handleShow = (habit: Habit) => setSelectedHabit(habit);
+
   return (
-    <Table striped bordered>
-      <thead>
-        <tr>
-          <th key="title">Habit</th>
-          {dates.map((date) => (
-            <th key={date.getDate()}>{date.getDate()}</th>
+    <>
+      <Table striped bordered>
+        <thead>
+          <tr>
+            <th key="title">Habit</th>
+            {dates.map((date) => (
+              <th key={date.getDate()}>{date.toLocaleDateString()}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {habits.map((habit) => (
+            <HabitRow
+              key={habit.id}
+              habit={habit}
+              dates={dates}
+              updateHabit={updateHabit}
+              handleShow={handleShow}
+            />
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {habits.map((habit) => (
-          <HabitRow
-            key={habit.id}
-            habit={habit}
-            dates={dates}
-            updateHabit={updateHabit}
-          />
-        ))}
-      </tbody>
-    </Table>
+        </tbody>
+      </Table>
+
+      <HabitEdit
+        handleClose={handleClose}
+        habit={selectedHabit}
+        deleteHabit={deleteHabit}
+      ></HabitEdit>
+    </>
   );
 }
 
