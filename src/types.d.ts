@@ -1,9 +1,9 @@
-interface Event {
+interface HabitEvent {
   date: Date;
 }
 
 interface Habit {
   id: number;
   name: string;
-  events: Event[];
+  events: HabitEvent[];
 }

@@ -21,6 +21,14 @@ function App(): JSX.Element {
     setHabits(newHabits);
   };
 
+  const updateHabit = (updatedHabit: Habit) => {
+    setHabits(
+      habits.map((habit) =>
+        habit.id === updatedHabit.id ? updatedHabit : habit,
+      ),
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">Habit Tracker</header>
@@ -28,7 +36,7 @@ function App(): JSX.Element {
       <br />
       <HabitAdder addHabit={addHabit} />
       <br />
-      <HabitTable habits={habits} dates={dates} />
+      <HabitTable habits={habits} dates={dates} updateHabit={updateHabit} />
     </div>
   );
 }
