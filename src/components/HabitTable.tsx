@@ -55,7 +55,7 @@ function HabitTable({ habits, dates }: Props): JSX.Element {
       </thead>
       <tbody>
         {habits.map((habit) => (
-          <HabitRow key={habit.name} habit={habit} dates={dates} />
+          <HabitRow key={habit.id} habit={habit} dates={dates} />
         ))}
       </tbody>
     </Table>

@@ -3,6 +3,7 @@ interface Event {
 }
 
 interface Habit {
+  id: number;
   name: string;
   events: Event[];
 }
