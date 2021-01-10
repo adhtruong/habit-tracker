@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 interface Props {
   addHabit: (string: string) => void;
@@ -7,14 +8,16 @@ interface Props {
 const HabitAdder = ({ addHabit }: Props): JSX.Element => {
   const [text, setText] = useState("");
   return (
-    <form>
-      <input
+    <Form inline>
+      <Form.Control
+        className="mb-2 mr-sm-2"
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button
+      <Button
         type="submit"
+        className="mb-2 mr-sm-2"
         onClick={(e) => {
           e.preventDefault();
           if (!text) return;
@@ -23,8 +26,8 @@ const HabitAdder = ({ addHabit }: Props): JSX.Element => {
         }}
       >
         Add Habit
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 };
 

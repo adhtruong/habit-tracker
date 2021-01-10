@@ -1,5 +1,6 @@
 import React from "react";
 import Habit from "./Habit";
+import { ListGroup } from "react-bootstrap";
 
 interface Props {
   habits: Habit[];
@@ -7,11 +8,11 @@ interface Props {
 
 const HabitList: React.FC<Props> = ({ habits }) => {
   return (
-    <ul>
+    <ListGroup>
       {habits.map((habit) => (
-        <Habit key={habit.name} habit={habit} />
+        <Habit key={habit.id} habit={habit} />
       ))}
-    </ul>
+    </ListGroup>
   );
 };
 

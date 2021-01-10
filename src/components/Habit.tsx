@@ -1,4 +1,5 @@
 import React from "react";
+import { ListGroup } from "react-bootstrap";
 
 interface Props {
   habit: Habit;
@@ -6,9 +7,9 @@ interface Props {
 
 const Habit: React.FC<Props> = ({ habit }) => {
   return (
-    <li>
+    <ListGroup.Item>
       Habit {habit.name}. Count {habit.events.length}
-    </li>
+    </ListGroup.Item>
   );
 };
 
