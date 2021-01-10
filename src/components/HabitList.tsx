@@ -1,6 +1,8 @@
 import React from "react";
-import Habit from "./Habit";
+
 import { ListGroup } from "react-bootstrap";
+
+import Habit from "./Habit";
 
 interface Props {
   habits: Habit[];

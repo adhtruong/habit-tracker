@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-// import HabitList from "./components/HabitList";
-import HabitTable from "./components/HabitTable";
-import HabitAdder from "./components/HabitAdder";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getDates } from "./getDates";
+
 import { Container, Row, Col } from "react-bootstrap";
+
+// import HabitList from "./components/HabitList";
+import HabitAdder from "./components/HabitAdder";
+import HabitTable from "./components/HabitTable";
+import { getDates } from "./getDates";
 
 function App(): JSX.Element {
   const dates = getDates(7);
