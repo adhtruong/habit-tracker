@@ -6,3 +6,6 @@ export function getDates(number: number): Date[] {
     return d;
   });
 }
+
+export const getDateString = (date: Date): string =>
+  date.toISOString().substring(0, 10);

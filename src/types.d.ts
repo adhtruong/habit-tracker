@@ -1,5 +1,5 @@
 interface HabitEvent {
-  date: Date;
+  date: string;
 }
 
 interface Habit {

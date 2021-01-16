@@ -28,8 +28,8 @@ function getRowData(habit: Habit, dates: Date[]) {
     date: date,
     ticked:
       habit.events
-        .map((event) => event.date.toDateString())
-        .indexOf(date.toDateString()) !== -1,
+        .map((event) => event.date)
+        .indexOf(date.toLocaleDateString()) !== -1,
   }));
 }
 

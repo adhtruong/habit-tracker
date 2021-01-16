@@ -20,15 +20,15 @@ export function toggleHabitEvent(
 ): HabitActionInterface {
   const isSelected =
     habit.events
-      .map((event) => event.date.toDateString())
-      .indexOf(date.toDateString()) !== -1;
+      .map((event) => event.date)
+      .indexOf(date.toLocaleDateString()) !== -1;
 
   const updatedHabit = habit;
   if (isSelected)
     updatedHabit.events = updatedHabit.events.filter(
-      (event) => event.date.getDate() !== date.getDate(),
+      (event) => event.date !== date.toLocaleDateString(),
     );
-  else updatedHabit.events.push({ date: date });
+  else updatedHabit.events.push({ date: date.toLocaleDateString() });
 
   return {
     type: HabitActionTypes.UPDATE_HABIT,

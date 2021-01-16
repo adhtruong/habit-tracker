@@ -39,7 +39,12 @@ describe("actions", () => {
     const habit = { id: 1, name: "Habit", detail: "", events: [] };
     expect(actions.toggleHabitEvent(habit, date)).toEqual({
       type: types.HabitActionTypes.UPDATE_HABIT,
-      payload: { id: 1, name: "Habit", detail: "", events: [{ date: date }] },
+      payload: {
+        id: 1,
+        name: "Habit",
+        detail: "",
+        events: [{ date: date.toLocaleDateString() }],
+      },
     });
   });
 
@@ -49,7 +54,7 @@ describe("actions", () => {
       id: 1,
       name: "Habit",
       detail: "",
-      events: [{ date: date }],
+      events: [{ date: date.toLocaleDateString() }],
     };
     expect(actions.toggleHabitEvent(habit, date)).toEqual({
       type: types.HabitActionTypes.UPDATE_HABIT,
