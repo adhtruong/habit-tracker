@@ -49,3 +49,27 @@ describe("Add habit", () => {
     });
   });
 });
+
+describe("Delete habit reducer", () => {
+  it("Delete habit", () => {
+    const habitToDelete = {
+      id: 1,
+      name: "Habit to delete",
+      detail: "",
+      events: [],
+    };
+    const otherHabit = {
+      id: 2,
+      name: "Other habit",
+      detail: "",
+      events: [],
+    };
+    const action = {
+      type: types.HabitActionTypes.DELETE_HABIT,
+      payload: habitToDelete,
+    };
+    expect(
+      habitReducer({ habits: [habitToDelete, otherHabit] }, action),
+    ).toEqual({ habits: [otherHabit] });
+  });
+});

@@ -32,7 +32,7 @@ export default function habitReducer(
       };
     case HabitActionTypes.DELETE_HABIT:
       return {
-        habits: state.habits.filter((habit) => habit.id === action.payload.id),
+        habits: state.habits.filter((habit) => habit.id !== action.payload.id),
       };
     default:
       return state;
