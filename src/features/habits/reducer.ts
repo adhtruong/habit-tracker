@@ -4,7 +4,10 @@ const nextID = (habits: Habit[]) => {
   if (!habits.length) {
     return 1;
   }
-  const maxID = Math.max.apply(habits.map((habit) => habit.id));
+  const maxID = Math.max.apply(
+    null,
+    habits.map((habit) => habit.id),
+  );
   return maxID + 1;
 };
 
