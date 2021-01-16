@@ -1,5 +1,4 @@
 {
-  "setupFiles": ["<rootDir>/src/setupTests.js"],
   "testRegex": "/*.test.js$",
   "collectCoverage": true,
   "coverageReporters": ["lcov"],
