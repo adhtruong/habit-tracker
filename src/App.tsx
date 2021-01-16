@@ -13,7 +13,7 @@ function App(): JSX.Element {
   const dates = getDates(7);
   const [habits, setHabits] = useState<Habit[]>([]);
 
-  const addHabit = (habitName: string) => {
+  const addHabit = (habitName: string, detail: string) => {
     const id = habits.length
       ? Math.max.apply(
           null,
@@ -21,7 +21,10 @@ function App(): JSX.Element {
         ) + 1
       : 1;
     console.log(id, habits);
-    const newHabits = [...habits, { id: id, name: habitName, events: [] }];
+    const newHabits = [
+      ...habits,
+      { id: id, name: habitName, detail: detail, events: [] },
+    ];
     setHabits(newHabits);
   };
 

@@ -5,5 +5,6 @@ interface HabitEvent {
 interface Habit {
   id: number;
   name: string;
+  detail: string;
   events: HabitEvent[];
 }

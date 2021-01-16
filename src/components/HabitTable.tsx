@@ -63,25 +63,25 @@ const HabitRow: React.FC<RowProps> = ({
   );
 };
 
-function toggleHabit(
+const toggleHabit = (
   updateHabit: (habit: Habit) => void,
   habit: Habit,
   date: Date,
-) {
+) => {
   const isSelected =
     habit.events
       .map((event) => event.date.toDateString())
       .indexOf(date.toDateString()) !== -1;
 
-  const updated_habit = habit;
+  const updatedHabit = habit;
   if (isSelected)
-    updated_habit.events = updated_habit.events.filter(
+    updatedHabit.events = updatedHabit.events.filter(
       (event) => event.date.getDate() !== date.getDate(),
     );
-  else updated_habit.events.push({ date: date });
+  else updatedHabit.events.push({ date: date });
 
-  updateHabit(updated_habit);
-}
+  updateHabit(updatedHabit);
+};
 
 function HabitTable({
   habits,

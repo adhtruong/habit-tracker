@@ -19,10 +19,15 @@ const HabitEdit = ({ handleClose, habit, deleteHabit }: Props): JSX.Element => {
       <Modal.Header closeButton>
         <Modal.Title>{habit.name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Habit occurred {habit.events.length} times.</Modal.Body>
+      <Modal.Body>
+        {habit.detail ? <p>{habit.detail}</p> : ""}
+        <p>Habit occurred {habit.events.length} times.</p>
+      </Modal.Body>
       <Modal.Footer>
         <Button
           onClick={() => {
+            if (!window.confirm("Are you sure you wish to delete this item?"))
+              return;
             deleteHabit(habit);
             handleClose();
           }}
