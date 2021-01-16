@@ -1,11 +1,10 @@
-import React, { Dispatch, useState } from "react";
+import React, { useState } from "react";
 
 import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "../features";
-import { updateHabit } from "../features/habits/actions";
-import { HabitActionInterface } from "../features/habits/types";
+import { toggleHabitEvent } from "../features/habits/actions";
 import HabitEdit from "./HabitEdit";
 
 interface RowProps {
@@ -47,32 +46,12 @@ const HabitRow: React.FC<RowProps> = ({ habit, dates, handleShow }) => {
             key={date.getDate()}
             ticked={ticked}
             date={date}
-            toggleHabit={() => toggleHabit(dispatch, habit, date)}
+            toggleHabit={() => dispatch(toggleHabitEvent(habit, date))}
           />
         );
       })}
     </tr>
   );
-};
-
-const toggleHabit = (
-  dispatch: Dispatch<HabitActionInterface>,
-  habit: Habit,
-  date: Date,
-) => {
-  const isSelected =
-    habit.events
-      .map((event) => event.date.toDateString())
-      .indexOf(date.toDateString()) !== -1;
-
-  const updatedHabit = habit;
-  if (isSelected)
-    updatedHabit.events = updatedHabit.events.filter(
-      (event) => event.date.getDate() !== date.getDate(),
-    );
-  else updatedHabit.events.push({ date: date });
-
-  dispatch(updateHabit(updatedHabit));
 };
 
 const allHabit = (state: RootState) => state.habits.habits;
