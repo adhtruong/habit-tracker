@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 
 import Table from "react-bootstrap/Table";
+import { useSelector, useDispatch } from "react-redux";
 
+import { RootState } from "../features";
+import { updateHabit } from "../features/habits/actions";
+import { HabitActionInterface } from "../features/habits/types";
 import HabitEdit from "./HabitEdit";
 
 interface RowProps {
   habit: Habit;
   dates: Date[];
-  updateHabit: (habit: Habit) => void;
   handleShow: (habit: Habit) => void;
 }
 
@@ -17,15 +20,8 @@ interface CellProps {
   toggleHabit: () => void;
 }
 
-interface Props {
-  habits: Habit[];
-  dates: Date[];
-  updateHabit: (habit: Habit) => void;
-  deleteHabit: (habit: Habit) => void;
-}
-
 const HabitCell: React.FC<CellProps> = ({ ticked, toggleHabit }) => {
-  return <td onClick={() => toggleHabit()}>{ticked ? 1 : 0}</td>;
+  return <td onClick={toggleHabit}>{ticked ? 1 : 0}</td>;
 };
 
 function getRowData(habit: Habit, dates: Date[]) {
@@ -38,12 +34,8 @@ function getRowData(habit: Habit, dates: Date[]) {
   }));
 }
 
-const HabitRow: React.FC<RowProps> = ({
-  habit,
-  dates,
-  updateHabit,
-  handleShow,
-}) => {
+const HabitRow: React.FC<RowProps> = ({ habit, dates, handleShow }) => {
+  const dispatch = useDispatch();
   return (
     <tr>
       <td key={habit.name} onClick={() => handleShow(habit)}>
@@ -55,7 +47,7 @@ const HabitRow: React.FC<RowProps> = ({
             key={date.getDate()}
             ticked={ticked}
             date={date}
-            toggleHabit={() => toggleHabit(updateHabit, habit, date)}
+            toggleHabit={() => toggleHabit(dispatch, habit, date)}
           />
         );
       })}
@@ -64,7 +56,7 @@ const HabitRow: React.FC<RowProps> = ({
 };
 
 const toggleHabit = (
-  updateHabit: (habit: Habit) => void,
+  dispatch: Dispatch<HabitActionInterface>,
   habit: Habit,
   date: Date,
 ) => {
@@ -80,15 +72,14 @@ const toggleHabit = (
     );
   else updatedHabit.events.push({ date: date });
 
-  updateHabit(updatedHabit);
+  dispatch(updateHabit(updatedHabit));
 };
 
-function HabitTable({
-  habits,
-  dates,
-  updateHabit,
-  deleteHabit,
-}: Props): JSX.Element {
+const allHabit = (state: RootState) => state.habits.habits;
+
+function HabitTable({ dates }: { dates: Date[] }): JSX.Element {
+  const habits = useSelector(allHabit);
+
   const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null);
 
   const handleClose = () => setSelectedHabit(null);
@@ -111,18 +102,13 @@ function HabitTable({
               key={habit.id}
               habit={habit}
               dates={dates}
-              updateHabit={updateHabit}
               handleShow={handleShow}
             />
           ))}
         </tbody>
       </Table>
 
-      <HabitEdit
-        handleClose={handleClose}
-        habit={selectedHabit}
-        deleteHabit={deleteHabit}
-      ></HabitEdit>
+      <HabitEdit handleClose={handleClose} habit={selectedHabit}></HabitEdit>
     </>
   );
 }

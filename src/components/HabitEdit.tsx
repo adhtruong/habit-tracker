@@ -2,14 +2,15 @@ import React from "react";
 
 import { Button, Modal } from "react-bootstrap";
 
+import { deleteHabit } from "../features/habits/actions";
+import store from "../store";
+
 interface Props {
   handleClose: () => void;
   habit: Habit | null;
-  //   updateHabit: (habit: Habit) => void;
-  deleteHabit: (habit: Habit) => void;
 }
 
-const HabitEdit = ({ handleClose, habit, deleteHabit }: Props): JSX.Element => {
+const HabitEdit = ({ handleClose, habit }: Props): JSX.Element => {
   if (!habit) {
     return <div></div>;
   }
@@ -28,7 +29,7 @@ const HabitEdit = ({ handleClose, habit, deleteHabit }: Props): JSX.Element => {
           onClick={() => {
             if (!window.confirm("Are you sure you wish to delete this item?"))
               return;
-            deleteHabit(habit);
+            store.dispatch(deleteHabit(habit));
             handleClose();
           }}
         >

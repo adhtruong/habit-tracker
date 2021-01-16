@@ -2,17 +2,13 @@ import React, { useState } from "react";
 
 import { Form, Button } from "react-bootstrap";
 
-interface Props {
-  addHabit: (name: string, detail: string) => void;
-}
+import { addHabit } from "../features/habits/actions";
+import { HabitInput } from "../features/habits/types";
+import store from "../store";
 
-interface HabitInput {
-  name: string;
-  details: string;
-}
+const HabitAdder = (): JSX.Element => {
+  const [input, setInput] = useState<HabitInput>({ name: "", detail: "" });
 
-const HabitAdder = ({ addHabit }: Props): JSX.Element => {
-  const [input, setInput] = useState<HabitInput>({ name: "", details: "" });
   return (
     <Form inline>
       <Form.Control
@@ -26,8 +22,8 @@ const HabitAdder = ({ addHabit }: Props): JSX.Element => {
         className="mb-2 mr-sm-2"
         placeholder="Details..."
         type="text"
-        value={input.details}
-        onChange={(e) => setInput({ ...input, details: e.target.value })}
+        value={input.detail}
+        onChange={(e) => setInput({ ...input, detail: e.target.value })}
       />
       <Button
         type="submit"
@@ -35,8 +31,8 @@ const HabitAdder = ({ addHabit }: Props): JSX.Element => {
         onClick={(e) => {
           e.preventDefault();
           if (!input.name) return;
-          addHabit(input.name, input.details);
-          setInput({ name: "", details: "" });
+          store.dispatch(addHabit(input));
+          setInput({ name: "", detail: "" });
         }}
       >
         Add Habit

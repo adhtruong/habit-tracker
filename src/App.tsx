@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -11,33 +11,6 @@ import { getDates } from "./getDates";
 
 function App(): JSX.Element {
   const dates = getDates(7);
-  const [habits, setHabits] = useState<Habit[]>([]);
-
-  const addHabit = (habitName: string, detail: string) => {
-    const id = habits.length
-      ? Math.max.apply(
-          null,
-          habits.map((habit) => habit.id),
-        ) + 1
-      : 1;
-    const newHabits = [
-      ...habits,
-      { id: id, name: habitName, detail: detail, events: [] },
-    ];
-    setHabits(newHabits);
-  };
-
-  const updateHabit = (updatedHabit: Habit) => {
-    setHabits(
-      habits.map((habit) =>
-        habit.id === updatedHabit.id ? updatedHabit : habit,
-      ),
-    );
-  };
-
-  const deleteHabit = (habitToDelete: Habit) => {
-    setHabits(habits.filter((habit) => habit.id !== habitToDelete.id));
-  };
 
   return (
     <div className="App p-4">
@@ -50,17 +23,12 @@ function App(): JSX.Element {
         </Row> */}
         <Row className="p-2">
           <Col>
-            <HabitAdder addHabit={addHabit} />
+            <HabitAdder />
           </Col>
         </Row>
         <Row className="p-2">
           <Col>
-            <HabitTable
-              habits={habits}
-              dates={dates}
-              updateHabit={updateHabit}
-              deleteHabit={deleteHabit}
-            />
+            <HabitTable dates={dates} />
           </Col>
         </Row>
       </Container>

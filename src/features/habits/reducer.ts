@@ -1,8 +1,11 @@
 import { HabitActionTypes, HabitState, HabitActionInterface } from "./types";
 
 const nextID = (habits: Habit[]) => {
-  const maxID = Math.max(...habits.map((habit) => habit.id));
-  return maxID ? maxID + 1 : 1;
+  if (!habits.length) {
+    return 1;
+  }
+  const maxID = Math.max.apply(habits.map((habit) => habit.id));
+  return maxID + 1;
 };
 
 const initialHabits: HabitState = { habits: [] };
@@ -26,7 +29,7 @@ export default function habitReducer(
       };
     case HabitActionTypes.DELETE_HABIT:
       return {
-        habits: state.habits.filter((habit) => habit.id !== action.payload.id),
+        habits: state.habits.filter((habit) => habit.id === action.payload.id),
       };
     default:
       return state;
