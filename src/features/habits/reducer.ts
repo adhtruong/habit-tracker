@@ -1,10 +1,4 @@
-import {
-  ADD_HABIT,
-  HabitState,
-  HabitActionTypes,
-  UPDATE_HABIT,
-  DELETE_HABIT,
-} from "./types";
+import { HabitActionTypes, HabitState, HabitActionInterface } from "./types";
 
 const nextID = (habits: Habit[]) => {
   const maxID = Math.max(...habits.map((habit) => habit.id));
@@ -15,22 +9,22 @@ const initialHabits: HabitState = { habits: [] };
 
 export default function habitReducer(
   state = initialHabits,
-  action: HabitActionTypes,
+  action: HabitActionInterface,
 ): HabitState {
   switch (action.type) {
-    case ADD_HABIT:
+    case HabitActionTypes.ADD_HABIT:
       const newID = nextID(state.habits);
       const newHabit: Habit = { id: newID, events: [], ...action.payload };
       return {
         habits: [...state.habits, newHabit],
       };
-    case UPDATE_HABIT:
+    case HabitActionTypes.UPDATE_HABIT:
       return {
         habits: state.habits.map((habit) =>
           habit.id === action.payload.id ? action.payload : habit,
         ),
       };
-    case DELETE_HABIT:
+    case HabitActionTypes.DELETE_HABIT:
       return {
         habits: state.habits.filter((habit) => habit.id !== action.payload.id),
       };

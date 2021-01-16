@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import habitReducer from "./features/habits/reducer";
+import habitReducer from "./habits/reducer";
 
 const rootReducer = combineReducers({
   habits: habitReducer,

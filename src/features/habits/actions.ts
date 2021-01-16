@@ -1,28 +1,22 @@
-import {
-  HabitInput,
-  ADD_HABIT,
-  DELETE_HABIT,
-  HabitActionTypes,
-  UPDATE_HABIT,
-} from "./types";
+import { HabitInput, HabitActionInterface, HabitActionTypes } from "./types";
 
-export function addHabit(habitInput: HabitInput): HabitActionTypes {
+export function addHabit(habitInput: HabitInput): HabitActionInterface {
   return {
-    type: ADD_HABIT,
+    type: HabitActionTypes.ADD_HABIT,
     payload: habitInput,
   };
 }
 
-export function updateHabit(habit: Habit): HabitActionTypes {
+export function updateHabit(habit: Habit): HabitActionInterface {
   return {
-    type: UPDATE_HABIT,
+    type: HabitActionTypes.UPDATE_HABIT,
     payload: habit,
   };
 }
 
-export function deleteHabit(habit: Habit): HabitActionTypes {
+export function deleteHabit(habit: Habit): HabitActionInterface {
   return {
-    type: DELETE_HABIT,
+    type: HabitActionTypes.DELETE_HABIT,
     payload: habit,
   };
 }
