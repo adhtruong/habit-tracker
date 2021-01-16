@@ -1,5 +1,5 @@
-import habitReducer from "./reducer";
-import * as types from "./types";
+import habitReducer from "../reducer";
+import * as types from "../types";
 
 describe("Add habit", () => {
   it("Add habit on empty", () => {
@@ -43,6 +43,33 @@ describe("Add habit", () => {
         events: [],
       },
     ]);
+  });
+});
+
+describe("Update habit reducer", () => {
+  it("Update habit", () => {
+    const updatedHabit = {
+      id: 1,
+      name: "Habit to update",
+      detail: "",
+      events: [],
+    };
+    const otherHabit = {
+      id: 2,
+      name: "Other habit",
+      detail: "",
+      events: [],
+    };
+    const action = {
+      type: types.HabitActionTypes.UPDATE_HABIT,
+      payload: updatedHabit,
+    };
+    expect(
+      habitReducer(
+        [{ id: 1, name: "Original name", detail: "", events: [] }, otherHabit],
+        action,
+      ),
+    ).toEqual([updatedHabit, otherHabit]);
   });
 });
 
