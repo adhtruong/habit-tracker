@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootState } from "../features";
 import { toggleHabitEvent } from "../features/habits/actions";
+import { allHabits } from "../features/selectors";
 import HabitEdit from "./HabitEdit";
 
 interface RowProps {
@@ -54,10 +54,8 @@ const HabitRow: React.FC<RowProps> = ({ habit, dates, handleShow }) => {
   );
 };
 
-const allHabit = (state: RootState) => state.habits;
-
 function HabitTable({ dates }: { dates: Date[] }): JSX.Element {
-  const habits = useSelector(allHabit);
+  const habits = useSelector(allHabits);
 
   const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null);
 

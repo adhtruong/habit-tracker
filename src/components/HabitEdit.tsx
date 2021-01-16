@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Button, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
 import { deleteHabit } from "../features/habits/actions";
-import store from "../store";
 
 interface Props {
   handleClose: () => void;
@@ -15,8 +15,13 @@ const HabitEdit = ({ handleClose, habit }: Props): JSX.Element => {
     return <div></div>;
   }
 
+  const dispatch = useDispatch();
+  const handleDelete = useCallback(() => dispatch(deleteHabit(habit)), [
+    dispatch,
+  ]);
+
   return (
-    <Modal show={habit !== null} animation={false} onHide={handleClose}>
+    <Modal show={!!habit} animation={false} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{habit.name}</Modal.Title>
       </Modal.Header>
@@ -29,7 +34,7 @@ const HabitEdit = ({ handleClose, habit }: Props): JSX.Element => {
           onClick={() => {
             if (!window.confirm("Are you sure you wish to delete this item?"))
               return;
-            store.dispatch(deleteHabit(habit));
+            handleDelete();
             handleClose();
           }}
         >
@@ -43,4 +48,4 @@ const HabitEdit = ({ handleClose, habit }: Props): JSX.Element => {
   );
 };
 
-export default HabitEdit;
+export default React.memo(HabitEdit);
