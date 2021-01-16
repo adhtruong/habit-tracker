@@ -11,7 +11,7 @@ const nextID = (habits: Habit[]) => {
   return maxID + 1;
 };
 
-const initialHabits: HabitState = { habits: [] };
+const initialHabits: HabitState = [];
 
 export default function habitReducer(
   state = initialHabits,
@@ -19,21 +19,15 @@ export default function habitReducer(
 ): HabitState {
   switch (action.type) {
     case HabitActionTypes.ADD_HABIT:
-      const newID = nextID(state.habits);
+      const newID = nextID(state);
       const newHabit: Habit = { id: newID, events: [], ...action.payload };
-      return {
-        habits: [...state.habits, newHabit],
-      };
+      return [...state, newHabit];
     case HabitActionTypes.UPDATE_HABIT:
-      return {
-        habits: state.habits.map((habit) =>
-          habit.id === action.payload.id ? action.payload : habit,
-        ),
-      };
+      return state.map((habit) =>
+        habit.id === action.payload.id ? action.payload : habit,
+      );
     case HabitActionTypes.DELETE_HABIT:
-      return {
-        habits: state.habits.filter((habit) => habit.id !== action.payload.id),
-      };
+      return state.filter((habit) => habit.id !== action.payload.id);
     default:
       return state;
   }

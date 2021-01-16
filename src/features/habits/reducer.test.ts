@@ -10,16 +10,14 @@ describe("Add habit", () => {
         detail: "",
       },
     };
-    expect(habitReducer({ habits: [] }, action)).toEqual({
-      habits: [
-        {
-          id: 1,
-          name: "New Habit 1",
-          detail: "",
-          events: [],
-        },
-      ],
-    });
+    expect(habitReducer([], action)).toEqual([
+      {
+        id: 1,
+        name: "New Habit 1",
+        detail: "",
+        events: [],
+      },
+    ]);
   });
 
   it("Add habit on non-empty", () => {
@@ -36,17 +34,15 @@ describe("Add habit", () => {
         detail: "",
       },
     };
-    expect(habitReducer({ habits: [existingHabit] }, action)).toEqual({
-      habits: [
-        existingHabit,
-        {
-          id: 2,
-          name: "New Habit 1",
-          detail: "",
-          events: [],
-        },
-      ],
-    });
+    expect(habitReducer([existingHabit], action)).toEqual([
+      existingHabit,
+      {
+        id: 2,
+        name: "New Habit 1",
+        detail: "",
+        events: [],
+      },
+    ]);
   });
 });
 
@@ -68,8 +64,8 @@ describe("Delete habit reducer", () => {
       type: types.HabitActionTypes.DELETE_HABIT,
       payload: habitToDelete,
     };
-    expect(
-      habitReducer({ habits: [habitToDelete, otherHabit] }, action),
-    ).toEqual({ habits: [otherHabit] });
+    expect(habitReducer([habitToDelete, otherHabit], action)).toEqual([
+      otherHabit,
+    ]);
   });
 });

@@ -3,9 +3,7 @@ export interface HabitInput {
   detail: string;
 }
 
-export interface HabitState {
-  habits: Habit[];
-}
+export type HabitState = Habit[];
 
 export enum HabitActionTypes {
   ADD_HABIT = "ADD_HABIT",

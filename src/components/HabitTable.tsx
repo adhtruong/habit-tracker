@@ -54,7 +54,7 @@ const HabitRow: React.FC<RowProps> = ({ habit, dates, handleShow }) => {
   );
 };
 
-const allHabit = (state: RootState) => state.habits.habits;
+const allHabit = (state: RootState) => state.habits;
 
 function HabitTable({ dates }: { dates: Date[] }): JSX.Element {
   const habits = useSelector(allHabit);
