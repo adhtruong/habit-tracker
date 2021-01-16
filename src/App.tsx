@@ -20,7 +20,6 @@ function App(): JSX.Element {
           habits.map((habit) => habit.id),
         ) + 1
       : 1;
-    console.log(id, habits);
     const newHabits = [
       ...habits,
       { id: id, name: habitName, detail: detail, events: [] },
