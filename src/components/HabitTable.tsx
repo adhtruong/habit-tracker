@@ -96,7 +96,7 @@ function HabitTable({
 
   return (
     <>
-      <Table striped bordered>
+      <Table responsive striped bordered>
         <thead>
           <tr>
             <th key="title">Habit</th>

@@ -40,7 +40,7 @@ function App(): JSX.Element {
   };
 
   return (
-    <div className="App">
+    <div className="App p-4">
       <h1 className="text-center">Habit Tracker</h1>
       <Container fluid="md">
         {/* <Row className="p-2">
