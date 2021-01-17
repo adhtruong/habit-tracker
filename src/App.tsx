@@ -4,10 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Container, Row, Col } from "react-bootstrap";
 
-// import HabitList from "./components/HabitList";
 import HabitAdder from "./components/HabitAdder";
 import HabitTable from "./components/HabitTable";
-import { getDates } from "./getDates";
+import { getDates } from "./util/getDates";
 
 function App(): JSX.Element {
   const dates = getDates(7);

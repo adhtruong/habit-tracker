@@ -1,11 +1,11 @@
 import * as actions from "../actions";
-import * as types from "../types";
+import * as constants from "../constants";
 
 describe("actions", () => {
   it("Create habit", () => {
     const name = "New Habit";
     const expectedAction = {
-      type: types.HabitActionTypes.ADD_HABIT,
+      type: constants.HabitActionTypes.ADD_HABIT,
       payload: {
         name: name,
         detail: "",
@@ -19,7 +19,7 @@ describe("actions", () => {
   it("Delete habit", () => {
     const habit = { id: 1, name: "Habit", detail: "", events: [] };
     expect(actions.deleteHabit(habit)).toEqual({
-      type: types.HabitActionTypes.DELETE_HABIT,
+      type: constants.HabitActionTypes.DELETE_HABIT,
       payload: habit,
     });
   });
@@ -29,7 +29,7 @@ describe("actions", () => {
   it("Update habit", () => {
     const habit = { id: 1, name: "Habit", detail: "", events: [] };
     expect(actions.updateHabit(habit)).toEqual({
-      type: types.HabitActionTypes.UPDATE_HABIT,
+      type: constants.HabitActionTypes.UPDATE_HABIT,
       payload: habit,
     });
   });
@@ -38,7 +38,7 @@ describe("actions", () => {
     const date = new Date("2021-01-10");
     const habit = { id: 1, name: "Habit", detail: "", events: [] };
     expect(actions.toggleHabitEvent(habit, date)).toEqual({
-      type: types.HabitActionTypes.UPDATE_HABIT,
+      type: constants.HabitActionTypes.UPDATE_HABIT,
       payload: {
         id: 1,
         name: "Habit",
@@ -57,7 +57,7 @@ describe("actions", () => {
       events: [{ date: date.toLocaleDateString() }],
     };
     expect(actions.toggleHabitEvent(habit, date)).toEqual({
-      type: types.HabitActionTypes.UPDATE_HABIT,
+      type: constants.HabitActionTypes.UPDATE_HABIT,
       payload: { id: 1, name: "Habit", detail: "", events: [] },
     });
   });

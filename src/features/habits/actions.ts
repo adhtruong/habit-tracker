@@ -1,4 +1,5 @@
-import { HabitInput, HabitActionInterface, HabitActionTypes } from "./types";
+import { HabitActionTypes } from "./constants";
+import { HabitInput, HabitActionInterface } from "./types";
 
 export function addHabit(habitInput: HabitInput): HabitActionInterface {
   return {

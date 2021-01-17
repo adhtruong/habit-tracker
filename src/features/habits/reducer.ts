@@ -1,4 +1,5 @@
-import { HabitActionTypes, HabitState, HabitActionInterface } from "./types";
+import { HabitActionTypes } from "./constants";
+import { HabitState, HabitActionInterface } from "./types";
 
 const nextID = (habits: Habit[]) => {
   if (!habits.length) {

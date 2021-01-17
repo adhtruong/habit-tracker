@@ -1,10 +1,11 @@
+import * as constants from "../constants";
 import habitReducer from "../reducer";
 import * as types from "../types";
 
 describe("Add habit", () => {
   it("Add habit on empty", () => {
     const action: types.HabitActionInterface = {
-      type: types.HabitActionTypes.ADD_HABIT,
+      type: constants.HabitActionTypes.ADD_HABIT,
       payload: {
         name: "New Habit 1",
         detail: "",
@@ -28,7 +29,7 @@ describe("Add habit", () => {
       events: [],
     };
     const action: types.HabitActionInterface = {
-      type: types.HabitActionTypes.ADD_HABIT,
+      type: constants.HabitActionTypes.ADD_HABIT,
       payload: {
         name: "New Habit 1",
         detail: "",
@@ -61,7 +62,7 @@ describe("Update habit reducer", () => {
       events: [],
     };
     const action = {
-      type: types.HabitActionTypes.UPDATE_HABIT,
+      type: constants.HabitActionTypes.UPDATE_HABIT,
       payload: updatedHabit,
     };
     expect(
@@ -88,7 +89,7 @@ describe("Delete habit reducer", () => {
       events: [],
     };
     const action = {
-      type: types.HabitActionTypes.DELETE_HABIT,
+      type: constants.HabitActionTypes.DELETE_HABIT,
       payload: habitToDelete,
     };
     expect(habitReducer([habitToDelete, otherHabit], action)).toEqual([
