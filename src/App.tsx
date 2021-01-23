@@ -18,13 +18,13 @@ const App = (): JSX.Element => {
       <div className="App p-4">
         <h1 className="text-center">Habit Tracker</h1>
         <Switch>
-          <Route exact path="/" component={HomePage} />
           <Route
             path="/habit/:id(\d+)"
             render={({ match }: RouteComponentProps<{ id: string }>) => {
               return <HabitDetail habitId={Number(match.params.id)} />;
             }}
           />
+          <Route path="/" component={HomePage} />
         </Switch>
       </div>
     </BrowserRouter>

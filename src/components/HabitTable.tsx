@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Table from "react-bootstrap/Table";
+import { HiCheck, HiX } from "react-icons/hi";
 import { useSelector, useDispatch } from "react-redux";
 
 import { toggleHabitEvent } from "../features/habits/actions";
@@ -20,7 +21,11 @@ interface CellProps {
 }
 
 const HabitCell: React.FC<CellProps> = ({ ticked, toggleHabit }) => {
-  return <td onClick={toggleHabit}>{ticked ? 1 : 0}</td>;
+  return (
+    <td align="center" onClick={toggleHabit}>
+      {ticked ? <HiCheck /> : <HiX color="grey" />}
+    </td>
+  );
 };
 
 function getRowData(habit: Habit, dates: Date[]) {
@@ -54,6 +59,24 @@ const HabitRow: React.FC<RowProps> = ({ habit, dates, handleShow }) => {
   );
 };
 
+type HeaderProps = {
+  dates: Date[];
+};
+
+const HabitHeader: React.FC<HeaderProps> = ({ dates }: HeaderProps) => {
+  return (
+    <thead>
+      <th key="title">Habit</th>
+      {dates.map((date) => (
+        // TODO clean up
+        <th className="text-center" key={date.getUTCDate()}>
+          {date.toString().split(" ")[0] + " " + date.getDate()}
+        </th>
+      ))}
+    </thead>
+  );
+};
+
 function HabitTable({ dates }: { dates: Date[] }): JSX.Element {
   const habits = useSelector(allHabits);
 
@@ -65,14 +88,7 @@ function HabitTable({ dates }: { dates: Date[] }): JSX.Element {
   return (
     <>
       <Table responsive striped bordered>
-        <thead>
-          <tr>
-            <th key="title">Habit</th>
-            {dates.map((date) => (
-              <th key={date.getDate()}>{date.toLocaleDateString()}</th>
-            ))}
-          </tr>
-        </thead>
+        <HabitHeader dates={dates} />
         <tbody>
           {habits.map((habit) => (
             <HabitRow
